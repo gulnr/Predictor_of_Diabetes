@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -124,12 +125,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/account/'
-
 LOGIN_URL = '/account/login/'
+
+LOGOUT_URL = '/account/logout'
+LOGOUT_REDIRECT_URL = '/account/login/'
 
 LOGIN_EXEMPT_URLS = (
     r'^account/logout/$',
-    r'^account/register/$'
+    r'^account/register/$',
+    r'^account/reset-password/$',
 )
 
 

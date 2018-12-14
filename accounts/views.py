@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 def home(request):
-    return render(request, 'account/login.html')
+    return render(request, 'accounts/login.html')
 
 
 @login_required
@@ -67,4 +67,21 @@ def change_password(request):
         return render(request, 'accounts/change_password.html', args)
 
 
+@login_required
+def account(request):
+    return render(request, 'accounts/account.html')
 
+
+@login_required
+def doctor_home(request):
+    return render(request, 'staff/doctor_home.html')
+
+
+@login_required
+def labasst_home(request):
+    return render(request, 'staff/labasst_home.html')
+
+
+@login_required
+def see_employees(request):
+    return render(request, 'staff/manager_v2.html')
