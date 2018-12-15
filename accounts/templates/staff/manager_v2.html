@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block head %}
     <title>Manager Home Page</title>
     <link rel="stylesheet" type="static/account/css" href="manager.css">
-
 {% endblock %}
 
 {% block content %}
@@ -96,8 +96,35 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="2b" style="width:700px; margin:0 auto;">
-                    <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
-			    </div>
+
+                    {% for field in form.visible_fields %}
+                        {% csrf_token %}
+                      <div class="form-group">
+                        {{ field.label_tag }}
+
+                        {% if form.is_bound %}
+                          {% if field.errors %}
+                            {% render_field field class="form-control is-invalid" %}
+                            {% for error in field.errors %}
+                              <div class="invalid-feedback">
+                                {{ error }}
+                              </div>
+                            {% endfor %}
+                          {% else %}
+                            {% render_field field class="form-control is-valid" %}
+                          {% endif %}
+                        {% else %}
+                          {% render_field field class="form-control" %}
+                        {% endif %}
+
+                        {% if field.help_text %}
+                          <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+
+                        </div>
+                    {% endfor %}
+                    <input type="submit" value="submit">
+                </div>
                 <div class="tab-pane" id="3b" style="width:700px; margin:0 auto;">
                     <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
 				</div>
