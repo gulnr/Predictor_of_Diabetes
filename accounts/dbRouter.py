@@ -7,7 +7,7 @@ class AccountsDBRouter(object):
         from django.conf import settings
         if 'accounts' not in settings.DATABASES.keys():
             return None
-        if model._meta.app_label == 'accpunts':
+        if model._meta.app_label == 'accounts':
             return 'accounts'
         return None
 
@@ -39,9 +39,3 @@ class AccountsDBRouter(object):
         elif model._meta.app_label == 'accounts':
             return False
         return None
-
-    def allow_migrate(self, db, app_label, model_name=None, **hints):
-        """
-        All non-auth models end up in this pool.
-        """
-        return True
