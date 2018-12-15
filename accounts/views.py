@@ -4,6 +4,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.views.generic import ListView
+from .models import UserProfile
+
 
 def home(request):
     return render(request, 'accounts/login.html')
@@ -56,10 +59,9 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect('/account/profile')
+            return redirect('/account/profile/')
         else:
-            return redirect('/accounts/change-password')
-
+            return redirect('/account/change-password/')
     else:
         form = PasswordChangeForm(user=request.user)
 
@@ -84,4 +86,8 @@ def labasst_home(request):
 
 @login_required
 def see_employees(request):
-    return render(request, 'staff/manager_v2.html')
+    staff = UserProfile.objects.filter(staff="Doctor")
+    staff2 = UserProfile.objects.filter(staff="Lab Assistant")
+    return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+
+
