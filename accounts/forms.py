@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.hashers import make_password
 from .models import UserProfile
 
-
 class RegistrationForm(forms.ModelForm):
     first_name = forms.CharField(label='First Name', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
     last_name = forms.CharField(label='Last Name', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
@@ -53,14 +52,28 @@ class RegistrationForm(forms.ModelForm):
 
 
 class EditProfileForm(UserChangeForm):
+    first_name = forms.CharField(label='First Name', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
+    last_name = forms.CharField(label='Last Name', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
+    password_confirm = forms.CharField(label='Password Confirm', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'E-mail'}))
+    staff = forms.CharField(label='Staff Type', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Doctor'}), required=True)
+    birthdate = forms.CharField(label='Birthdate', widget=forms.DateInput(format='%d.%m.%Y', attrs={'class':'form-control', 'placeholder':'Doctor'}))
+    phonenumber = forms.RegexField(regex=r'^\+?1?\d{9,15}$', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'+90 '}))
 
     class Meta:
         model = User
         fields = (
-            'email',
             'first_name',
             'last_name',
+            'username',
             'password',
+            'password_confirm',
+            'staff',
+            'email',
+            'birthdate',
+            'phonenumber'
         )
         exclude = []
 

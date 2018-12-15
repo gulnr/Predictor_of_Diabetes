@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'accounts',
+        'ENFORCE_SCHEMA':True,
     }
 }
 
@@ -144,3 +146,7 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
 # python -m smtpd -n -c DebuggingServer localhost:1025
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+DATE_INPUT_FORMATS = DATE_INPUT_FORMATS = ['%d.%m.%Y']
