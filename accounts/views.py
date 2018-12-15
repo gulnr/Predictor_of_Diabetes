@@ -80,11 +80,6 @@ def doctor_home(request):
 
 
 @login_required
-def labasst_home(request):
-    return render(request, 'staff/labasst_home.html')
-
-
-@login_required
 def see_employees(request):
     staff = UserProfile.objects.filter(staff="Doctor")
     staff2 = UserProfile.objects.filter(staff="Lab Assistant")

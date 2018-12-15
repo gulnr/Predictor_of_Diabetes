@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
-    'crispy_forms'
+    'crispy_forms',
+    'results'
+
 ]
 
 MIDDLEWARE = [
@@ -82,9 +84,20 @@ WSGI_APPLICATION = 'pod2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'accounts',
+        'NAME': 'default',
         'ENFORCE_SCHEMA':True,
+    },
+    'accounts': {
+        'ENGINE': 'djongo',
+        'NAME': 'accounts',
+        'ENFORCE_SCHEMA': True,
+    },
+    'results': {
+        'ENGINE': 'djongo',
+        'NAME': 'results',
+        'ENFORCE_SCHEMA': True,
     }
+
 }
 
 
@@ -148,3 +161,5 @@ EMAIL_PORT = 1025
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = DATE_INPUT_FORMATS = ['%d.%m.%Y']
+
+DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter']

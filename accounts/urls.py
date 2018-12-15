@@ -18,6 +18,5 @@ urlpatterns = [
     re_path(r'^reset-password/complete/$', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     re_path(r'^accounts/$', views.account, name='accounts'),
     re_path(r'^doctor_home/$', views.doctor_home, name='doctor_home'),
-    re_path(r'^labasst_home/$', views.labasst_home, name='labasst_home'),
     re_path(r'^see-employees/$', views.see_employees, name='see_employees'),
 ]
