@@ -130,8 +130,36 @@
                 </div>
 
                 <div class="tab-pane" id="3b">
-                    <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
-				</div>
+                    <div class="form-group">
+                    <form method="POST">
+                    {% for field in update_form.visible_fields %}
+                        {% csrf_token %}
+                        {{ field.label_tag }}
+
+                        {% if update_form.is_bound %}
+                          {% if field.errors %}
+                            {% render_field field class="form-control is-invalid" %}
+                            {% for error in field.errors %}
+                              <div class="invalid-feedback">
+                                {{ error }}
+                              </div>
+                            {% endfor %}
+                          {% else %}
+                            {% render_field field class="form-control is-valid" %}
+                          {% endif %}
+                        {% else %}
+                          {% render_field field class="form-control" %}
+                        {% endif %}
+
+                        {% if field.help_text %}
+                          <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+
+                    {% endfor %}
+                    <input type="submit" value="submit">
+                    </form>
+                    </div>
+                </div>
                 <div class="tab-pane" id="4b">
                     <h3>We use css to change the background color of the content to be equal to the tab</h3>
 				</div>

@@ -91,12 +91,11 @@ def see_employees(request):
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        update_form = RegistrationForm(request.POST)
+        update_form = EditProfileForm(request.POST)
+
         if form.is_valid():
-            print(form)
             try:
                 form.save()
-                print('saved')
                 return HttpResponseRedirect('')
 
             except BulkWriteError:
@@ -105,7 +104,21 @@ def see_employees(request):
             except DuplicateKeyError:
                 return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
 
-        args = {'form': form, 'staff': staff, 'staff2': staff2}
+        if update_form.is_valid():
+            try:
+                update_form.save()
+                return HttpResponseRedirect('')
+
+            except BulkWriteError:
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+
+            except DuplicateKeyError:
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+
+        form = RegistrationForm(request.GET)
+        update_form = EditProfileForm(request.GET)
+
+        args = {'form': form, 'update_form':update_form ,'staff': staff, 'staff2': staff2}
         return render(request, 'staff/manager_v2.html', args)
 
     else:

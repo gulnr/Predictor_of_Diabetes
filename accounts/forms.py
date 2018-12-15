@@ -77,6 +77,28 @@ class EditProfileForm(UserChangeForm):
         )
         exclude = []
 
+    def save(self, commit=True):
+        user = super(EditProfileForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.password = self.cleaned_data['password']
+        user.password_confirm = self.cleaned_data['password_confirm']
+        user.staff = self.cleaned_data['staff']
+        user.email = self.cleaned_data['email']
+        user.birthdate = self.cleaned_data['birthdate']
+        user.phonenumber = self.cleaned_data['phonenumber']
+
+        u = User(username=user.username, first_name=user.first_name, last_name=user.last_name,
+                 password=make_password(user.password))
+        up = UserProfile(staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
+
+        if commit and (user.password == user.password_confirm):
+            u.save()
+            up.save()
+
+        return u, up
+
+
 class AdditionalInfoForm(forms.Form):
     phonenumber = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
     address = forms.CharField(label='Address', widget=forms.TextInput, required=True)
