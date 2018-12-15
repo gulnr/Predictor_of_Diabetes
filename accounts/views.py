@@ -78,10 +78,5 @@ def doctor_home(request):
 
 
 @login_required
-def labasst_home(request):
-    return render(request, 'staff/labasst_home.html')
-
-
-@login_required
 def see_employees(request):
     return render(request, 'staff/manager_v2.html')

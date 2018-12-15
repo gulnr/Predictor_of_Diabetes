@@ -79,9 +79,13 @@ WSGI_APPLICATION = 'pod2.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'accounts': {
         'ENGINE': 'djongo',
         'NAME': 'accounts',
+    },
+    'results': {
+        'ENGINE': 'djongo',
+        'NAME': 'results',
     }
 }
 
@@ -140,5 +144,7 @@ LOGIN_EXEMPT_URLS = (
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+
+DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter']
 
 # python -m smtpd -n -c DebuggingServer localhost:1025
