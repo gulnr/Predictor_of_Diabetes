@@ -6,8 +6,8 @@ app_name = 'accounts'
 
 urlpatterns = [
     re_path(r'^$', views.home),
-    re_path(r'^login/$', LoginView.as_view(), {'template_name': 'accounts/login.html'}),
-    re_path(r'^logout/$', LogoutView.as_view(), {'template_name': 'accounts/logout.html'}),
+    re_path(r'^login/$', LoginView.as_view(), {'template_name': 'registration/login.html'}),
+    re_path(r'^logout/$', LogoutView.as_view(), {'template_name': 'registration/logout.html'}),
     re_path(r'^register/$', views.register, name='register'),
     re_path(r'^profile/$', views.view_profile, name='view_profile'),
     re_path(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
