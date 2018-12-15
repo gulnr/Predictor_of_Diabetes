@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from pymongo.errors import DuplicateKeyError
 
 def home(request):
     return render(request, 'accounts/login.html')
@@ -84,16 +85,21 @@ def labasst_home(request):
 
 @login_required
 def see_employees(request):
-    print(request.method)
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        print(form.errors)
-        print(form.is_valid())
+
         if form.is_valid():
             print(form)
-            form.save()
-            print('2')
-            return HttpResponseRedirect('/')
+            try:
+                form.save()
+                return HttpResponseRedirect('')
+
+            except DuplicateKeyError:
+                return render(request, 'staff/manager_v2.html', args)
+
+        args = {'form':form}
+        return render(request, 'staff/manager_v2.html', args)
+
     else:
         form = RegistrationForm()
         args = {'form': form}
