@@ -4,7 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from pymongo.errors import DuplicateKeyError
+from pymongo.errors import DuplicateKeyError, BulkWriteError
 
 def home(request):
     return render(request, 'accounts/login.html')
@@ -92,9 +92,13 @@ def see_employees(request):
             print(form)
             try:
                 form.save()
+                print('saved')
                 return HttpResponseRedirect('')
 
             except DuplicateKeyError:
+                return render(request, 'staff/manager_v2.html')
+
+            except BulkWriteError:
                 return render(request, 'staff/manager_v2.html')
 
         args = {'form':form}
