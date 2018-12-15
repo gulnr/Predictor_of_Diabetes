@@ -95,7 +95,7 @@ def see_employees(request):
                 return HttpResponseRedirect('')
 
             except DuplicateKeyError:
-                return render(request, 'staff/manager_v2.html', args)
+                return render(request, 'staff/manager_v2.html')
 
         args = {'form':form}
         return render(request, 'staff/manager_v2.html', args)
