@@ -3,7 +3,7 @@ from results import views
 
 app_name = 'results'
 
-url_pattern =[
+urlpatterns =[
     re_path(r'^labasst_home/$', views.labasst_home, name='labasst_home')
 
 

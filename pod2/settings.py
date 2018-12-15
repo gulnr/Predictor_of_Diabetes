@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'results'
 ]
 
 MIDDLEWARE = [
@@ -79,6 +80,10 @@ WSGI_APPLICATION = 'pod2.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'default',
+    },
     'accounts': {
         'ENGINE': 'djongo',
         'NAME': 'accounts',
