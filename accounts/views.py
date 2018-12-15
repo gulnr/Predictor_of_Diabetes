@@ -5,6 +5,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from pymongo.errors import DuplicateKeyError, BulkWriteError
+from .models import UserProfile
 
 def home(request):
     return render(request, 'accounts/login.html')
@@ -85,9 +86,12 @@ def labasst_home(request):
 
 @login_required
 def see_employees(request):
+    staff = UserProfile.objects.filter(staff="Doctor")
+    staff2 = UserProfile.objects.filter(staff="Lab Assistant")
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-
+        update_form = RegistrationForm(request.POST)
         if form.is_valid():
             print(form)
             try:
@@ -95,17 +99,17 @@ def see_employees(request):
                 print('saved')
                 return HttpResponseRedirect('')
 
-            except DuplicateKeyError:
-                return render(request, 'staff/manager_v2.html')
-
             except BulkWriteError:
-                return render(request, 'staff/manager_v2.html')
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
 
-        args = {'form':form}
+            except DuplicateKeyError:
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+
+        args = {'form': form, 'staff': staff, 'staff2': staff2}
         return render(request, 'staff/manager_v2.html', args)
 
     else:
         form = RegistrationForm()
-        args = {'form': form}
+        args = {'form': form, 'staff': staff, 'staff2': staff2}
         return render(request, 'staff/manager_v2.html', args)
 
