@@ -84,4 +84,18 @@ def labasst_home(request):
 
 @login_required
 def see_employees(request):
-    return render(request, 'staff/manager_v2.html')
+    print(request.method)
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        print(form.errors)
+        print(form.is_valid())
+        if form.is_valid():
+            print(form)
+            form.save()
+            print('2')
+            return HttpResponseRedirect('/')
+    else:
+        form = RegistrationForm()
+        args = {'form': form}
+        return render(request, 'staff/manager_v2.html', args)
+
