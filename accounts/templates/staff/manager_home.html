@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block body %}
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">              </button>
+                  <a class="navbar-brand" href="#">Hospital Name</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    {% if user.is_authenticated %}
+                    <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" id="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings</a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                          <li><a href="/account/">View Profile</a></li>
+                          <li><a href="/account/change-password/">Change Password</a></li>
+                          <li><a href="/account/logout/">Log out</a></li>
+                      </ul>
+                    </li>
+                    </ul>
+                   {% endif %}
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+        </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+
+                <form  id="form1"> <!-- TODO add method="POST" -->
+                    <h2 class="title" id="title-save">Employee Registration Form</h2>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" id="employee-name">first name</label>
+                                <input class="input--style-4" type="text" name="first_name">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" id="employee-surname">last name</label>
+                                <input class="input--style-4" type="text" name="last_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Birthday</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Gender</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">Male
+                                        <input type="radio" checked="checked" name="gender">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">Female
+                                        <input type="radio" name="gender">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Email</label>
+                                <input class="input--style-4" type="email" name="email">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Phone Number</label>
+                                <input class="input--style-4" type="text" name="phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >username</label>
+                                <input class="input--style-4" type="text" name="first_name">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >password</label>
+                                <input class="input--style-4" type="text" name="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Title</label>
+                        <div class="rs-select2 js-select-simple select--no-search">
+                            <select name="subject">
+                                <option disabled="disabled" selected="selected">Choose option</option>
+                                <option>Doctor</option>
+                                <option>laboratory assistant</option>
+                                <option>Other</option>
+                            </select>
+                            <div class="select-dropdown"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                            <div class="input-group">
+                                <button class="btn btn--radius-2 btn--blue">Save</button>
+                            </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+
+                <form  id="form2"> <!-- TODO add method="POST" -->
+                    <h2 class="title">Update Information Form</h2>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >Employee ID</label>
+                                <input class="input--style-4" type="text" name="employeeID">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >first name</label>
+                                <input class="input--style-4" type="text" name="first_name">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >last name</label>
+                                <input class="input--style-4" type="text" name="last_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Birthday</label>
+                                <div class="input-group-icon">
+                                    <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Gender</label>
+                                <div class="p-t-10">
+                                    <label class="radio-container m-r-45">Male
+                                        <input type="radio" checked="checked" name="gender">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">Female
+                                        <input type="radio" name="gender">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Email</label>
+                                <input class="input--style-4" type="email" name="email">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label">Phone Number</label>
+                                <input class="input--style-4" type="text" name="phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >username</label>
+                                <input class="input--style-4" type="text" name="first_name">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label class="label" >password</label>
+                                <input class="input--style-4" type="text" name="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Title</label>
+                        <div class="rs-select2 js-select-simple select--no-search">
+                            <select name="subject">
+                                <option disabled="disabled" selected="selected">Choose option</option>
+                                <option>Doctor</option>
+                                <option>laboratory assistant</option>
+                                <option>Other</option>
+                            </select>
+                            <div class="select-dropdown"></div>
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-primary btn-sm btn-block" onclick="loadInformation()">Load Information</button>
+                    <button class="btn btn-primary btn-sm btn-block">Update information</button>
+                    <button class="btn btn-primary btn-sm btn-block">Remove employee</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="accounts/css/login.css">
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <header class="container">
+      <div style="vertical-align:middle; text-align:center"><img class="mb-4" src="{% static 'images/hospital_icon.png' %}" width="72px" height="72px" align="center"/></div>
+      <div style="text-align: center">
+          <h1 class="h3 mb-3 font-weight-normal">&nbsp&nbsp&nbsp&nbsp&nbspPlease log in</h1>
+          <form method="post" style="text-align: center">
+            {% csrf_token %}
+            {{ form.as_p }}
+      <div class="checkbox mb-3" style="text-align: center">
+          <button type="button" class="btn btn-link" id="forgetPassword" style="text-align: right">Forget Password</button>
+      </div>
+       <button class="btn btn-primary" id="login" type="submit" style="width: 100px">Log in</button>
+            </form>
+      </div>
+
+      <p class="mt-5 mb-3 text-muted" style="text-align:center">&copy; 2018-2019</p>
+  </header>
+
+  {% endblock %}
