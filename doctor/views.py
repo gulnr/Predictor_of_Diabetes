@@ -1,6 +1,5 @@
 from django.shortcuts import render, render_to_response
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.models import User
 from accounts.models import UserProfile
 
 # Create your views here.
