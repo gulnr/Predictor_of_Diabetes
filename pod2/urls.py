@@ -21,5 +21,6 @@ urlpatterns = [
     re_path(r'^$', views.login_redirect, name='login_redirect'),
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^account/', include('accounts.urls', namespace='account')),
+    re_path(r'^results/', include('results.urls', namespace='result')),
     re_path(r'^', include('django.contrib.auth.urls')),
 ]
