@@ -3,9 +3,10 @@ from accounts.forms import RegistrationForm, EditProfileForm, AdditionalInfoForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from pymongo.errors import DuplicateKeyError, BulkWriteError
 from .models import UserProfile
+from django.contrib.auth.models import User
 
 def home(request):
     return render(request, 'accounts/login.html')
@@ -86,7 +87,7 @@ def see_employees(request):
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        username = request.POST.get('textfield', None)
+        username = request.POST.get('username_input', None)
 
         if form.is_valid():
             try:
@@ -100,10 +101,9 @@ def see_employees(request):
                 return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
 
         try:
-            user = User.objects.get(name=username)
-            # do something with user
-            html = ("<H1>%s</H1>", user)
-            return HttpResponse(html)
+            user = User.objects.get(username=username)
+            update_form = RegistrationForm(instance=user)
+            return render(request, 'staff/manager_v2.html', {'update_form': update_form})
 
         except User.DoesNotExist:
             return HttpResponse("no such user")
