@@ -7,7 +7,7 @@ from results.models import *
 from accounts.models import UserProfile
 
 @login_required
-@user_passes_test(lambda u: UserProfile.object(staff='Laboratory Assistant') in u.groups.all())
+#@user_passes_test(lambda u: UserProfile.object(staff='Laboratory Assistant') in u.groups.all())
 def labasst_home(request):
     if request.method == 'POST':
         form = AddResultForm(request.POST)
