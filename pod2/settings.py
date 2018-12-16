@@ -87,11 +87,6 @@ DATABASES = {
         'NAME': 'default',
         'ENFORCE_SCHEMA':True,
     },
-    'accounts': {
-        'ENGINE': 'djongo',
-        'NAME': 'accounts',
-        'ENFORCE_SCHEMA': True,
-    },
     'results': {
         'ENGINE': 'djongo',
         'NAME': 'results',
@@ -162,4 +157,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = DATE_INPUT_FORMATS = ['%d.%m.%Y']
 
-DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter']
+DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter', ]
