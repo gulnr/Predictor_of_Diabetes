@@ -50,12 +50,12 @@
                                     {% if user_.id != 1 %}
                                         <tr>
                                             <th scope="row">{{ user_.user_id }}</th>
-                                            <td>{{ user_.name }}</td>
-                                            <td>{{ user_.surname }}</td>
+                                            <td>{{ user_.user.first_name }}</td>
+                                            <td>{{ user_.user.last_name }}</td>
                                             <td>{{ user_.staff }}</td>
                                             <td>{{ user_.description }}</td>
-                                            <td>{{ user_.phone }}</td>
-                                            <td>{{ user_.email }}</td>
+                                            <td>{{ user_.phonenumber }}</td>
+                                            <td>{{ user_.user.email }}</td>
                                             <td>{{ user_.address }}</td>
                                         </tr>
                                     {% endif %}

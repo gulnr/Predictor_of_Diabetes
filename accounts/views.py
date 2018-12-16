@@ -83,6 +83,7 @@ def doctor_home(request):
 @login_required
 def see_employees(request):
     staff = UserProfile.objects.filter(staff="Doctor")
+    print(staff)
     staff2 = UserProfile.objects.filter(staff="Lab Assistant")
 
     if request.method == 'POST':
