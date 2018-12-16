@@ -39,3 +39,12 @@ class AccountsDBRouter(object):
         elif model._meta.app_label == 'accounts':
             return False
         return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        """
+        Make sure the auth app only appears in the 'auth_db'
+        database.
+        """
+        if app_label == 'accounts':
+            return db == 'default'
+        return None
