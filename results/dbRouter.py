@@ -42,6 +42,9 @@ class ResultsDBRouter(object):
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         """
-        All non-auth models end up in this pool.
+        Make sure the auth app only appears in the 'auth_db'
+        database.
         """
-        return True
+        if app_label == 'results':
+            return db == 'results'
+        return None

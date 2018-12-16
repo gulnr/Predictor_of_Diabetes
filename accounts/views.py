@@ -101,9 +101,9 @@ def see_employees(request):
                 return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
 
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.filter(username=username).first()
             update_form = RegistrationForm(instance=user)
-            return render(request, 'staff/manager_v2.html', {'update_form': update_form})
+            return render(request, 'staff/manager_v2.html', {'update_form': update_form, 'username':username, 'staff': staff, 'staff2': staff2})
 
         except User.DoesNotExist:
             return HttpResponse("no such user")
