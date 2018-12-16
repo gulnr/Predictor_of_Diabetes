@@ -3,7 +3,10 @@ from accounts.forms import RegistrationForm, EditProfileForm, AdditionalInfoForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from pymongo.errors import DuplicateKeyError, BulkWriteError
+from .models import UserProfile
+from django.contrib.auth.models import User
 
 def home(request):
     return render(request, 'accounts/login.html')
@@ -78,10 +81,51 @@ def doctor_home(request):
 
 
 @login_required
-def labasst_home(request):
-    return render(request, 'staff/labasst_home.html')
-
-
-@login_required
 def see_employees(request):
-    return render(request, 'staff/manager_v2.html')
+    staff = UserProfile.objects.filter(staff="Doctor")
+    staff2 = UserProfile.objects.filter(staff="Lab Assistant")
+
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        username = request.POST.get('username_input', None)
+        username2rm = request.POST.get('username_input_remove', None)
+
+        if form.is_valid():
+            try:
+                form.save()
+                return HttpResponseRedirect('')
+
+            except BulkWriteError:
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+
+            except DuplicateKeyError:
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+        if username is not None:
+            try:
+                user = User.objects.filter(username=username).first()
+                update_form = RegistrationForm(instance=user)
+                return render(request, 'staff/manager_v2.html', {'update_form': update_form, 'username':username, 'staff': staff, 'staff2': staff2})
+
+            except User.DoesNotExist:
+                return HttpResponse("no such user")
+
+        if username2rm is not None:
+            try:
+                user = User.objects.filter(username=username2rm).delete()
+
+                return render(request, 'staff/manager_v2.html',
+                              { 'username2rm': (username2rm + ' removed'), 'staff': staff, 'staff2': staff2})
+
+            except User.DoesNotExist:
+                return HttpResponse("no such user")
+
+        form = RegistrationForm(request.GET)
+
+        args = {'form': form, 'staff': staff, 'staff2': staff2}
+        return render(request, 'staff/manager_v2.html', args)
+
+    else:
+        form = RegistrationForm()
+        args = {'form': form, 'staff': staff, 'staff2': staff2}
+        return render(request, 'staff/manager_v2.html', args)
+

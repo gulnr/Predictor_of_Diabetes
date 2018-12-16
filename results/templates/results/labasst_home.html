@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block head %}
+    <title>Laboratory Home Page</title>
+    <link rel="stylesheet" type="static/account/css" href="manager.css">
+
+{% endblock %}
+
+{% block content %}
+
+    <div id="interest_tabs" class="container" style="width:800px; margin:0 auto;">
+        <ul  class="nav nav-pills">
+            <li class="active"><a href="#2b" data-toggle="tab">Add Result</a></li>
+            <li><a href="#3b" data-toggle="tab">Update Result</a></li>
+            <li><a href="#4b" data-toggle="tab">Delete Result</a></li>
+        </ul>
+    </div>
+    <div class="col">
+    <div class="row">
+			<div class="tab-content clearfix">
+
+                <div class="tab-pane" id="2b" style="width:800px; margin:0 auto;">
+                    <div class="form-group">
+                    <form method="POST">
+                    {% for field in form.visible_fields %}
+                        {% csrf_token %}
+                        {{ field.label_tag }}
+
+                        {% if form.is_bound %}
+                          {% if field.errors %}
+                            {% render_field field class="form-control is-invalid" %}
+                            {% for error in field.errors %}
+                              <div class="invalid-feedback">
+                                {{ error }}
+                              </div>
+                            {% endfor %}
+                          {% else %}
+                            {% render_field field class="form-control is-valid" %}
+                          {% endif %}
+                        {% else %}
+                          {% render_field field class="form-control" %}
+                        {% endif %}
+
+                        {% if field.help_text %}
+                          <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+
+                    {% endfor %}
+                    <input type="submit" value="submit">
+                    </form>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="3b" style="width:800px; margin:0 auto;">
+                    <div class="form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <label for="result_id_input">Result ID</label>
+                            <input name="result_id_input" type="text" class="form-control input-sm" name="Result ID" >
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="form-group" id="update_form_div">
+                        <h3>Update {{ result_id }}</h3>
+
+                        <form method="POST">
+                            {% for field in update_form.visible_fields %}
+                                {% csrf_token %}
+                                {{ field.label_tag }}
+
+                                {% if update_form.is_bound %}
+                                  {% if field.errors %}
+                                    {% render_field field class="form-control is-invalid" %}
+                                    {% for error in field.errors %}
+                                      <div class="invalid-feedback">
+                                        {{ error }}
+                                      </div>
+                                      {% endfor %}
+                                {% else %}
+                                    {% render_field field class="form-control is-valid" %}
+                                {% endif %}
+                                {% else %}
+                                {% render_field field class="form-control" %}
+                                {% endif %}
+
+                                {% if field.help_text %}
+                                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                                 {% endif %}
+
+                            {% endfor %}
+                             <input type="submit" value="submit" class="btn btn-success">
+                            </form>
+                        </div>
+                    </div>
+                <div class="tab-pane" id="4b"  style="width:800px; margin:0 auto;">
+                    <div class="form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <label for="result_id_input_remove">Result ID</label>
+                            <input name="result_id_input_remove" type="text" class="form-control input-sm" >
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                    <h3>{{ result_id2rm }}</h3>
+ 				</div>
+			</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+     <script>
+
+
+
+    </script>
+
+{% endblock %}
+

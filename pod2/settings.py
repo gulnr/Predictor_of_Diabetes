@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'crispy_forms',
+    'results'
+
 ]
 
 MIDDLEWARE = [
@@ -58,8 +61,8 @@ ROOT_URLCONF = 'pod2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'accounts', 'templates'),
+                os.path.join(BASE_DIR, 'results', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,8 +84,15 @@ WSGI_APPLICATION = 'pod2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'accounts',
+        'NAME': 'default',
+        'ENFORCE_SCHEMA':True,
+    },
+    'results': {
+        'ENGINE': 'djongo',
+        'NAME': 'results',
+        'ENFORCE_SCHEMA': True,
     }
+
 }
 
 
@@ -142,3 +152,9 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
 # python -m smtpd -n -c DebuggingServer localhost:1025
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+DATE_INPUT_FORMATS = DATE_INPUT_FORMATS = ['%d.%m.%Y']
+
+DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter', ]
