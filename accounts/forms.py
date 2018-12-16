@@ -17,6 +17,7 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
+        model2 = UserProfile
         fields = (
             'first_name',
             'last_name',
@@ -41,11 +42,14 @@ class RegistrationForm(forms.ModelForm):
         user.phonenumber = self.cleaned_data['phonenumber']
 
         u = User(username=user.username, first_name=user.first_name, last_name=user.last_name,
-                 password=make_password(user.password))
-        up = UserProfile(staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
+                 password=make_password(user.password), email=user.email)
 
         if commit and (user.password == user.password_confirm):
             u.save()
+            u = User.objects.get(username=u.username)
+
+            up = UserProfile(user=u, staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
+
             up.save()
 
         return u, up

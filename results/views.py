@@ -5,9 +5,15 @@ from django.http import HttpResponseRedirect, HttpResponse
 from pymongo.errors import DuplicateKeyError, BulkWriteError
 from results.models import *
 from accounts.models import UserProfile
+from django.contrib.auth.models import User
+
+def get_current_username(request):
+    print("HHHHEEEEEEEREEEEEEEEEEEEE")
+    print(request.user.username)
+    return request.user.username
 
 @login_required
-#@user_passes_test(lambda u: UserProfile.object(staff='Laboratory Assistant') in u.groups.all())
+@user_passes_test(lambda u: UserProfile.objects.get(user_id=User.objects.get(id=u.id).id).staff == 'Laboratory Assistant')
 def labasst_home(request):
     if request.method == 'POST':
         form = AddResultForm(request.POST)
