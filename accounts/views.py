@@ -61,13 +61,13 @@ def change_password(request):
             update_session_auth_hash(request, form.user)
             return redirect('/account/profile')
         else:
-            return redirect('/accounts/change-password')
+            return redirect('/account/change-password')
 
     else:
         form = PasswordChangeForm(user=request.user)
 
         args = {'form': form}
-        return render(request, 'accounts/change_password.html', args)
+        return render(request, 'account/change_password.html', args)
 
 
 @login_required
