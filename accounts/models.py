@@ -8,7 +8,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     staff = models.CharField(max_length=30, default='')
-    phonenumber = models.CharField(max_length=14, default='+90 ')
+    phonenumber = models.CharField(max_length=14, default='90 ')
     birthdate = models.DateField(default=datetime.date.today)
 
     def __str__(self):

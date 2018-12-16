@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from results.forms import AddResultForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from pymongo.errors import DuplicateKeyError, BulkWriteError
 from results.models import *
+from accounts.models import UserProfile
 
 @login_required
+@user_passes_test(lambda u: UserProfile.object(staff='Laboratory Assistant') in u.groups.all())
 def labasst_home(request):
     if request.method == 'POST':
         form = AddResultForm(request.POST)
