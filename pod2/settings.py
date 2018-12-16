@@ -61,8 +61,8 @@ ROOT_URLCONF = 'pod2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'accounts', 'templates'),
+                os.path.join(BASE_DIR, 'results', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
