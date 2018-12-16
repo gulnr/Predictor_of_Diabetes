@@ -86,7 +86,7 @@ def see_employees(request):
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
-        update_form = EditProfileForm(request.POST)
+        username = request.POST.get('textfield', None)
 
         if form.is_valid():
             try:
@@ -99,21 +99,19 @@ def see_employees(request):
             except DuplicateKeyError:
                 return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
 
-        if update_form.is_valid():
-            try:
-                update_form.save()
-                return HttpResponseRedirect('')
+        try:
+            user = User.objects.get(name=username)
+            # do something with user
+            html = ("<H1>%s</H1>", user)
+            return HttpResponse(html)
 
-            except BulkWriteError:
-                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+        except User.DoesNotExist:
+            return HttpResponse("no such user")
 
-            except DuplicateKeyError:
-                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
 
         form = RegistrationForm(request.GET)
-        update_form = EditProfileForm(request.GET)
 
-        args = {'form': form, 'update_form':update_form ,'staff': staff, 'staff2': staff2}
+        args = {'form': form, 'staff': staff, 'staff2': staff2}
         return render(request, 'staff/manager_v2.html', args)
 
     else:
