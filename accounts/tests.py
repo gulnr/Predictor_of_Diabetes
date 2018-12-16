@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 import time
+import os
 from .models import User
 
 class MySeleniumTests(StaticLiveServerTestCase):
@@ -16,7 +17,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver("C:\\Users\\eylul\\PycharmProjects\\irem_django2.1_aynisi\\chromedriver.exe")
+        PROJECT_ROOT = os.path.abspath(os.path.dirname("irem_django2.1_aynisi"))
+        cls.selenium = WebDriver(PROJECT_ROOT+"\\chromedriver.exe")
         cls.selenium.implicitly_wait(10)
 
 
