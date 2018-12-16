@@ -89,6 +89,7 @@ def see_employees(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         username = request.POST.get('username_input', None)
+        username2rm = request.POST.get('username_input_remove', None)
 
         if form.is_valid():
             try:
@@ -100,15 +101,24 @@ def see_employees(request):
 
             except DuplicateKeyError:
                 return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+        if username is not None:
+            try:
+                user = User.objects.filter(username=username).first()
+                update_form = RegistrationForm(instance=user)
+                return render(request, 'staff/manager_v2.html', {'update_form': update_form, 'username':username, 'staff': staff, 'staff2': staff2})
 
-        try:
-            user = User.objects.filter(username=username).first()
-            update_form = RegistrationForm(instance=user)
-            return render(request, 'staff/manager_v2.html', {'update_form': update_form, 'username':username, 'staff': staff, 'staff2': staff2})
+            except User.DoesNotExist:
+                return HttpResponse("no such user")
 
-        except User.DoesNotExist:
-            return HttpResponse("no such user")
+        if username2rm is not None:
+            try:
+                user = User.objects.filter(username=username2rm).delete()
 
+                return render(request, 'staff/manager_v2.html',
+                              { 'username2rm': (username2rm + ' removed'), 'staff': staff, 'staff2': staff2})
+
+            except User.DoesNotExist:
+                return HttpResponse("no such user")
 
         form = RegistrationForm(request.GET)
 
