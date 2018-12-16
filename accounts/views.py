@@ -33,7 +33,9 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    args = {'user': request.user}
+    user = UserProfile.objects.get(user_id=request.user.id)
+    print(user)
+    args = {'user': user}
     return render(request, 'accounts/profile.html', args)
 
 

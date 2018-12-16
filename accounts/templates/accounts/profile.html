@@ -19,28 +19,35 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Department:</td>
-                        <td>{{ user.userprofile.staff }}</td>
+                        <td>Name:</td>
+                        <td>{{ user.user.first_name }}</td>
                       </tr>
                       <tr>
-                        <td>Description</td>
-                        <td>{{ user.userprofile.description }}</td>
+                        <td>Last Name:</td>
+                        <td>{{ user.user.last_name }}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Staff status:</td>
+                        <td>{{ user.staff }}</td>
+                      </tr>
+                      <tr>
+                        <td>Phone Number</td>
+                        <td>{{ user.phonenumber }}</td>
                       </tr>
                       <tr>
                         <td>Date of Birth</td>
-                        <td>{{ user.birth }}</td>
+                        <td>{{ user.birthdate }}</td>
                       </tr>
                          <tr>
                         <tr>
-                        <td>Home Address</td>
-                        <td>{{ user.userprofile.city }}</td>
+                        <td>Username</td>
+                        <td>{{ user.user.username }}</td>
                       </tr>
                       <tr>
                         <td>Email</td>
-                        <td>{{ user.email }}</td>
+                        <td>{{ user.user.email }}</td>
                       </tr>
-                        <td>Phone Number</td>
-                        <td>{{ user.userprofile.phone }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -48,7 +55,7 @@
                     <a href="/account/doctor_home/" class="btn btn-primary" style="margin: -10px 75px">See Patient Result</a>
                   {% elif user.userprofile.staff == "Manager" %}
                     <a href="/account/see-employees/" class="btn btn-primary" style="margin: -10px 75px">See Employees</a>
-                  {% elif user.userprofile.staff == "LabAssistant" %}
+                  {% elif user.userprofile.staff == "Laboratory Assistant" %}
                     <a href="/account/labasst_home/" class="btn btn-primary" style="margin: -10px 75px">Add Patient Result</a>
                   {% endif %}
                 </div>
