@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -6,4 +6,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def doctor_home(request):
-    return render(request, 'staff/doctor_home.html')
+    return render(request, 'doctor/doctor_home.html', locals())
