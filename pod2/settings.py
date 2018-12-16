@@ -61,8 +61,10 @@ ROOT_URLCONF = 'pod2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'accounts', 'templates'),
-                os.path.join(BASE_DIR, 'results', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'accounts', 'templates'),
+                 os.path.join(BASE_DIR, 'results', 'templates')]
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'default',
-        'ENFORCE_SCHEMA':True,
+        'ENFORCE_SCHEMA': True,
     },
     'results': {
         'ENGINE': 'djongo',
@@ -142,7 +144,6 @@ LOGOUT_REDIRECT_URL = '/account/login/'
 
 LOGIN_EXEMPT_URLS = (
     r'^account/logout/$',
-    r'^account/register/$',
     r'^account/reset-password/$',
 )
 
