@@ -12,8 +12,8 @@ class RegistrationForm(forms.ModelForm):
     password_confirm = forms.CharField(label='Password Confirm', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
     email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'E-mail'}))
     staff = forms.CharField(label='Staff Type', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Doctor'}), required=True)
-    birthdate = forms.CharField(label='Birthdate', widget=forms.DateInput(format='%d.%m.%Y', attrs={'class':'form-control', 'placeholder':'Doctor'}))
-    phonenumber = forms.RegexField(regex=r'^\+?1?\d{9,15}$', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'+90 '}))
+    birthdate = forms.CharField(label='Birthdate', widget=forms.DateInput(format='%Y-%m-%d', attrs={'class':'form-control', 'placeholder':'1961-03-31'}))
+    phonenumber = forms.RegexField(regex=r'^\+?1?\d{9,15}$', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'0 '}))
 
     class Meta:
         model = User
@@ -41,11 +41,15 @@ class RegistrationForm(forms.ModelForm):
         user.phonenumber = self.cleaned_data['phonenumber']
 
         u = User(username=user.username, first_name=user.first_name, last_name=user.last_name,
-                 password=make_password(user.password))
-        up = UserProfile(staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
+                 password=make_password(user.password), email=user.email)
 
         if commit and (user.password == user.password_confirm):
             u.save()
+            temp = User.objects.get(username=u.username)
+            print(f'staff {user.staff}')
+
+            up = UserProfile(user_id=u.id, staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
+
             up.save()
 
         return u, up
