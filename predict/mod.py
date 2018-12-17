@@ -6,7 +6,7 @@ import sklearn.preprocessing as pre
 
 class predictor:
     sc_X = pre.StandardScaler()
-    diabetes_data = pd.read_csv("./diabetes.csv")
+    diabetes_data = pd.read_csv("predict/diabetes.csv")
     X =  pd.DataFrame(sc_X.fit_transform(diabetes_data.drop(["Outcome"],axis = 1),))
     y = diabetes_data.Outcome
     param_grid = {'n_neighbors':np.arange(1,50)}
@@ -16,9 +16,10 @@ class predictor:
     def predict(self,a):
         son = pd.DataFrame(self.sc_X.transform([a]))
         arr = self.knn_cv.predict_proba(son)
-        if arr[0] > 0.5:
-            return [1, arr[0]]
+        print(arr)
+        if arr[0][0] > 0.5:
+            return [1, arr[0][0]]
         else:
-            return [0, arr[0]]
+            return [0, arr[0][0]]
 
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'results',
+    'doctor',
     'predict'
 
 ]
@@ -62,11 +63,10 @@ ROOT_URLCONF = 'pod2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(BASE_DIR, 'accounts', 'templates'),
+        'DIRS': [os.path.join(BASE_DIR, 'accounts', 'templates'),
+                 os.path.join(BASE_DIR, 'doctor', 'templates'),
                  os.path.join(BASE_DIR, 'results', 'templates'),
-                 os.path.join(BASE_DIR, 'predict', 'templates')]
-        ,
+                 os.path.join(BASE_DIR, 'predict', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -80,7 +80,7 @@ def account(request):
 @login_required
 def see_employees(request):
     staff = UserProfile.objects.filter(staff="Doctor")
-    staff2 = UserProfile.objects.filter(staff="Lab Assistant")
+    staff2 = UserProfile.objects.filter(staff="Laboratory Assistant")
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -93,8 +93,8 @@ def see_employees(request):
                 return HttpResponseRedirect('')
 
             except BulkWriteError:
-                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2, 'form_status':'none',
-                                                                 'tab_1_active':'', 'tab_2_active':'active', 'tab_3_active':'',
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2, 'form_status': 'none',
+                                                                 'tab_1_active': '', 'tab_2_active':'active', 'tab_3_active': '',
                                                                  'tab_4_active': ''})
 
             except DuplicateKeyError:

@@ -3,88 +3,96 @@
 
 {% block head %}
     <title>Doctor Home Page</title>
-    <link rel="stylesheet" type="static/account/css" href="manager.css">
 {% endblock %}
 
 {% block content %}
+
         <div class="container" style="width:400px; margin:0 auto;">
             <ul  class="nav nav-pills">
-                <li class="active"><a  href="#1b" data-toggle="tab">See Past Patients Result</a></li>
-                <li><a href="#2b" data-toggle="tab">See Patient Result</a></li>
+                <li class="{{ tab_1_active }}"><a  href="#1b" data-toggle="tab">See Past Patients Result</a></li>
+                <li class="{{ tab_2_active }}"><a href="#2b" data-toggle="tab">See Patient Result</a></li>
 		    </ul>
         </div>
         <br>
         <div id="exTab3" class="container">
 			<div class="tab-content clearfix">
-			    <div class="tab-pane active" id="1b">
+			    <div class="tab-pane {{ tab_1_active }}" id="1b">
                     <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Pregnancy</th>
+                                    <th scope="col">Glucose</th>
+                                    <th scope="col">Blood P.</th>
+                                    <th scope="col">Skin T.</th>
+                                    <th scope="col">Insulin</th>
+                                    <th scope="col">BMI</th>
+                                    <th scope="col">Diabetes P.</th>
+                                    <th scope="col">Age</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for user_ in staff %}
-                                    {% if user_.id != 1 %}
-                                        <tr>
-                                            <th scope="row">{{ user_.user_id }}</th>
-                                            <td>{{ user_.user.first_name }}</td>
-                                            <td>{{ user_.user.last_name }}</td>
-                                            <td>{{ user_.phonenumber }}</td>
-                                            <td>{{ user_.user.email }}</td>
-                                        </tr>
-                                    {% endif %}
+                                {% for patient_ in patient2 %}
+                                    <tr>
+                                        <th scope="row">{{ patient_.result_id }}</th>
+                                        <td>{{ patient_.pregnancy }}</td>
+                                        <td>{{ patient_.glucose }}</td>
+                                        <td>{{ patient_.blood_p }}</td>
+                                        <td>{{ patient_.skin }}</td>
+                                        <td>{{ patient_.insulin }}</td>
+                                        <td>{{ patient_.bmi }}</td>
+                                        <td>{{ patient_.diabetes }}</td>
+                                        <td>{{ patient_.age }}</td>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                 </div>
-                <div class="tab-pane" id="2b" style="width:800px; margin:0 auto;">
-                    <div class="form-group" style="text-align: center">
+                <div class="tab-pane {{ tab_2_active }}" id="2b" style="width:800px; margin:0 auto;">
+                    <div class="form-group">
                         <form method="POST">
                             {% csrf_token %}
-                            <label for="username_input">User Id</label>
-                            <input name="username_input" type="text" class="form-control input-sm" name="Userid" style="width:150px; margin:0 auto;">
-                            <br>
+                            <label for="result_input">Result id</label>
+                            <input name="result_input" type="text" class="form-control input-sm">
                             <button type="submit" class="btn btn-success">Submit</button>
-                            <h3>Update {{ username }}</h3>
-                            <div class="form-group">
-                                <form method="POST">
-                                    {% for field in update_form.visible_fields %}
-                                        {% csrf_token %}
-                                        {{ field.label_tag }}
-
-                                        {% if update_form.is_bound %}
-                                          {% if field.errors %}
-                                            {% render_field field class="form-control is-invalid" %}
-                                            {% for error in field.errors %}
-                                              <div class="invalid-feedback">
-                                                {{ error }}
-                                              </div>
-                                              {% endfor %}
-                                        {% else %}
-                                            {% render_field field class="form-control is-valid" %}
-                                        {% endif %}
-                                        {% else %}
-                                        {% render_field field class="form-control" %}
-                                        {% endif %}
-
-                                        {% if field.help_text %}
-                                              <small class="form-text text-muted">{{ field.help_text }}</small>
-                                         {% endif %}
-
-                                    {% endfor %}
-                                     <input type="submit" value="submit" class="btn btn-success">
-                                    </form>
-                                </div>
-                            </div>
                         </form>
                     </div>
+
+                    <div class="form-group" id="update_form_div" style="display: {{ form_status }};">
+                        <h3>Result ID: {{ result_id }}</h3>
+
+                        <form method="POST">
+                            {% for field in update_form.visible_fields %}
+                                {% csrf_token %}
+                                {{ field.label_tag }}
+
+                                {% if update_form.is_bound %}
+                                  {% if field.errors %}
+                                    {% render_field field class="form-control is-invalid" %}
+                                    {% for error in field.errors %}
+                                      <div class="invalid-feedback">
+                                        {{ error }}
+                                      </div>
+                                      {% endfor %}
+                                {% else %}
+                                    {% render_field field class="form-control is-valid" %}
+                                {% endif %}
+                                {% else %}
+                                {% render_field field class="form-control" %}
+                                {% endif %}
+
+                                {% if field.help_text %}
+                                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                                 {% endif %}
+
+                            {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+
+
                 </div>
-			</div>
+            </div>
         </div>
 
 {% endblock %}

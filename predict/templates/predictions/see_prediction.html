@@ -7,8 +7,8 @@
     <div class="form-group">
         <form method="POST">
             {% csrf_token %}
-            <label for="result_id input">Result ID</label>
-            <input name="result_id input" type="number" class="form-control input-sm" name="Result ID" >
+            <label for="result_id_input">Result ID</label>
+            <input name="result_id_input" type="number" class="form-control input-sm" name="Result ID" >
             <div style="text-align: center" >
                 <br>
             <button type="submit" class="btn btn-success">Submit</button>
@@ -17,8 +17,39 @@
     </div>
     </div>
 
-    <div>
-
+    <div style="width:1000px; margin:0 auto;">
+     <table class="table table-striped">
+         <thead>
+         <tr>
+             <th scope="col">ID</th>
+             <th scope="col">Pregnancy</th>
+             <th scope="col">Glucose</th>
+             <th scope="col">Blood P.</th>
+             <th scope="col">Skin T.</th>
+             <th scope="col">Insulin</th>
+             <th scope="col">BMI</th>
+             <th scope="col">Diabetes P.</th>
+             <th scope="col">Age</th>
+             <th scope="col">Prediction</th>
+             <th scope="col">Probability</th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr>
+             <th scope="row">{{ result_.result_id }}</th>
+             <td>{{ result.pregnancy }}</td>
+             <td>{{ result.glucose }}</td>
+             <td>{{ result.blood_p }}</td>
+             <td>{{ result.skin }}</td>
+             <td>{{ result.insulin }}</td>
+             <td>{{ result.bmi }}</td>
+             <td>{{ result.diabetes }}</td>
+             <td>{{ result.age }}</td>
+             <td>{{ prediction }}</td>
+             <td>{{ probability }}</td>
+         </tr>
+         </tbody>
+     </table>
 
     </div>
 {% endblock %}
