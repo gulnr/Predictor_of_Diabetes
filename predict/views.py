@@ -2,11 +2,13 @@ from django.shortcuts import render
 from results.models import ResultsModel
 from predict.models import PredictionModel
 from predict.mod import predictor
-from django.contrib.auth.decorators import login_required
+from accounts.models import UserProfile, User
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 
 temp = predictor()
 @login_required
+@user_passes_test(lambda u: UserProfile.objects.get(user_id=User.objects.get(id=u.id).id).staff == 'Doctor')
 def see_prediction(request):
     if request.method == 'POST':
 
