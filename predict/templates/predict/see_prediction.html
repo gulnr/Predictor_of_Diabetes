@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 
 {% block content %}
 
@@ -11,7 +12,7 @@
             <input name="result_id_input" type="number" class="form-control input-sm" name="Result ID" >
             <div style="text-align: center" >
                 <br>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success" id="prediction">Submit</button>
             </div>
         </form>
     </div>
@@ -51,5 +52,11 @@
          </tbody>
      </table>
 
+    <div class="container" id="img" style="text-align: center;">
+        <img src="{% static 'images/featureimportance.png' %}"/>
+        <img src="{% static 'images/roc.png' %}"/>
+
     </div>
+    </div>
+
 {% endblock %}

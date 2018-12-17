@@ -32,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for patient_ in patient2 %}
+                                {% for patient_ in results %}
                                     <tr>
                                         <th scope="row">{{ patient_.result_id }}</th>
                                         <td>{{ patient_.pregnancy }}</td>
@@ -61,38 +61,48 @@
                     <div class="form-group" id="update_form_div" style="display: {{ form_status }};">
                         <h3>Result ID: {{ result_id }}</h3>
 
-                        <form method="POST">
-                            {% for field in update_form.visible_fields %}
-                                {% csrf_token %}
-                                {{ field.label_tag }}
+                    <div style="width:800px; margin:0 auto;">
+                     <table class="table table-striped">
+                         <thead>
+                         <tr>
+                             <th scope="col">ID</th>
+                             <th scope="col">Pregnancy</th>
+                             <th scope="col">Glucose</th>
+                             <th scope="col">Blood P.</th>
+                             <th scope="col">Skin T.</th>
+                             <th scope="col">Insulin</th>
+                             <th scope="col">BMI</th>
+                             <th scope="col">Diabetes P.</th>
+                             <th scope="col">Age</th>
 
-                                {% if update_form.is_bound %}
-                                  {% if field.errors %}
-                                    {% render_field field class="form-control is-invalid" %}
-                                    {% for error in field.errors %}
-                                      <div class="invalid-feedback">
-                                        {{ error }}
-                                      </div>
-                                      {% endfor %}
-                                {% else %}
-                                    {% render_field field class="form-control is-valid" %}
-                                {% endif %}
-                                {% else %}
-                                {% render_field field class="form-control" %}
-                                {% endif %}
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr>
+                             <th scope="row">{{ result.result_id }}</th>
+                             <td>{{ result.pregnancy }}</td>
+                             <td>{{ result.glucose }}</td>
+                             <td>{{ result.blood_p }}</td>
+                             <td>{{ result.skin }}</td>
+                             <td>{{ result.insulin }}</td>
+                             <td>{{ result.bmi }}</td>
+                             <td>{{ result.diabetes }}</td>
+                             <td>{{ result.age }}</td>
 
-                                {% if field.help_text %}
-                                      <small class="form-text text-muted">{{ field.help_text }}</small>
-                                 {% endif %}
-
-                            {% endfor %}
-                            </form>
+                         </tr>
+                         </tbody>
+                     </table>
+                        <button type="submit" class="btn btn-success" id="prediction">See Predict</button>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
+
+        <script>
+           document.getElementById("prediction").onclick = function () {
+            location.href = "/predictions/see_prediction/";
+           };
+        </script>
 
 {% endblock %}

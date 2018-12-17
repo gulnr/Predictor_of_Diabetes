@@ -1,11 +1,12 @@
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np  # linear algebra
+import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
 import sklearn.preprocessing as pre
 import warnings
 
-class predictor:
+
+class Predictor:
     sc_X = pre.StandardScaler()
     diabetes_data = pd.read_csv("predict/diabetes.csv")
     with warnings.catch_warnings():
@@ -17,7 +18,7 @@ class predictor:
         knn_cv = GridSearchCV(knn, param_grid, cv=5)
         knn_cv.fit(X, y)
 
-    def predict(self,a):
+    def predict(self, a):
         son = pd.DataFrame(self.sc_X.transform([a]))
         arr = self.knn_cv.predict_proba(son)
         if arr[0][0] > 0.5:
