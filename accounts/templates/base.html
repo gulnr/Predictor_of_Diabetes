@@ -28,6 +28,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     {% if user.is_authenticated %}
                     <ul class="nav navbar-nav navbar-right">
+                        <li> <a href="#" id="nav-username"> {{user.username}}</a></li>
                         <li class="dropdown" id="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings</a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
