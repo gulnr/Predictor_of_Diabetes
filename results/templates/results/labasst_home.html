@@ -11,16 +11,16 @@
 
     <div id="interest_tabs" class="container" style="width:800px; margin:0 auto;">
         <ul  class="nav nav-pills">
-            <li class="active"><a href="#2b" data-toggle="tab">Add Result</a></li>
-            <li><a href="#3b" data-toggle="tab">Update Result</a></li>
-            <li><a href="#4b" data-toggle="tab">Delete Result</a></li>
+            <li class="{{ tab_2_active }}"><a href="#2b" data-toggle="tab">Add Result</a></li>
+            <li class="{{ tab_3_active }}"><a href="#3b" data-toggle="tab">Update Result</a></li>
+            <li class="{{ tab_4_active }}"><a href="#4b" data-toggle="tab">Delete Result</a></li>
         </ul>
     </div>
     <div class="col">
     <div class="row">
 			<div class="tab-content clearfix">
 
-                <div class="tab-pane" id="2b" style="width:800px; margin:0 auto;">
+                <div class="tab-pane {{ tab_2_active }}" id="2b" style="width:800px; margin:0 auto;">
                     <div class="form-group">
                     <form method="POST">
                     {% for field in form.visible_fields %}
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane" id="3b" style="width:800px; margin:0 auto;">
+                <div class="tab-pane {{ tab_3_active }}" id="3b" style="width:800px; margin:0 auto;">
                     <div class="form-group">
                         <form method="POST">
                             {% csrf_token %}
@@ -62,7 +62,7 @@
                         </form>
                     </div>
 
-                    <div class="form-group" id="update_form_div">
+                    <div class="form-group" id="update_form_div" style="display: {{ form_status }}">
                         <h3>Update {{ result_id }}</h3>
 
                         <form method="POST">
@@ -94,7 +94,7 @@
                             </form>
                         </div>
                     </div>
-                <div class="tab-pane" id="4b"  style="width:800px; margin:0 auto;">
+                <div class="tab-pane {{ tab_4_active }}" id="4b"  style="width:800px; margin:0 auto;">
                     <div class="form-group">
                         <form method="POST">
                             {% csrf_token %}

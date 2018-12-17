@@ -30,7 +30,7 @@ class AddResultForm(forms.ModelForm):
         attrs={'class':'form-control', 'placeholder': 'Last Name'}), required=True)
 
     patient_birthday = forms.CharField(label='Birthday', widget=forms.DateInput(
-        format="%d/%m/%Y", attrs={'class': 'form-control', 'placeholder': 'Day/Month/Year'}), required=True)
+        format="%Y-%m-%d", attrs={'class': 'form-control', 'placeholder': 'Day/Month/Year'}), required=True)
 
     pregnancy = forms.IntegerField(label='# of pregnancies', widget=forms.NumberInput(
         attrs={'class': 'form-control', 'placeholder': '0-17'}), required=True)

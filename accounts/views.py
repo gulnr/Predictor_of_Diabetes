@@ -93,15 +93,27 @@ def see_employees(request):
                 return HttpResponseRedirect('')
 
             except BulkWriteError:
-                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2, 'form_status':'none',
+                                                                 'tab_1_active':'', 'tab_2_active':'active', 'tab_3_active':'',
+                                                                 'tab_4_active': ''})
 
             except DuplicateKeyError:
-                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2})
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2, 'form_status':'none',
+                                                                 'tab_1_active': '', 'tab_2_active': 'active',
+                                                                 'tab_3_active': '',
+                                                                 'tab_4_active': ''
+                                                                 })
+
         if username is not None:
             try:
                 user = User.objects.filter(username=username).first()
                 update_form = RegistrationForm(instance=user)
-                return render(request, 'staff/manager_v2.html', {'update_form': update_form, 'username':username, 'staff': staff, 'staff2': staff2})
+                return render(request, 'staff/manager_v2.html', {'update_form': update_form, 'username':username, 'staff': staff, 'staff2': staff2,
+                                                                 'form_status':'block',
+                                                                 'tab_1_active': '', 'tab_2_active': '',
+                                                                 'tab_3_active': 'active',
+                                                                 'tab_4_active': ''
+                                                                 })
 
             except User.DoesNotExist:
                 return HttpResponse("no such user")
@@ -111,18 +123,27 @@ def see_employees(request):
                 user = User.objects.filter(username=username2rm).delete()
 
                 return render(request, 'staff/manager_v2.html',
-                              { 'username2rm': (username2rm + ' removed'), 'staff': staff, 'staff2': staff2})
+                              { 'username2rm': (username2rm + ' removed'), 'staff': staff, 'staff2': staff2, 'form_status':'none',
+                                'tab_1_active': '', 'tab_2_active': '', 'tab_3_active': '',
+                                'tab_4_active': 'active'
+                                })
 
             except User.DoesNotExist:
                 return HttpResponse("no such user")
 
         form = RegistrationForm(request.GET)
 
-        args = {'form': form, 'staff': staff, 'staff2': staff2}
+        args = {'form': form, 'staff': staff, 'staff2': staff2, 'form_status':'none',
+                'tab_1_active': 'active', 'tab_2_active': '', 'tab_3_active': '',
+                'tab_4_active': ''
+                }
         return render(request, 'staff/manager_v2.html', args)
 
     else:
         form = RegistrationForm()
-        args = {'form': form, 'staff': staff, 'staff2': staff2}
+        args = {'form': form, 'staff': staff, 'staff2': staff2, 'form_status':'none',
+                'tab_1_active': 'active', 'tab_2_active': '', 'tab_3_active': '',
+                'tab_4_active': ''
+                }
         return render(request, 'staff/manager_v2.html', args)
 

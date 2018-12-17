@@ -12,12 +12,11 @@ class RegistrationForm(forms.ModelForm):
     password_confirm = forms.CharField(label='Password Confirm', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'}))
     email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'E-mail'}))
     staff = forms.CharField(label='Staff Type', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Doctor'}), required=True)
-    birthdate = forms.CharField(label='Birthdate', widget=forms.DateInput(format='%d.%m.%Y', attrs={'class':'form-control', 'placeholder':'Doctor'}))
-    phonenumber = forms.RegexField(regex=r'^\+?1?\d{9,15}$', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'+90 '}))
+    birthdate = forms.CharField(label='Birthdate', widget=forms.DateInput(format='%Y-%m-%d', attrs={'class':'form-control', 'placeholder':'1961-03-31'}))
+    phonenumber = forms.RegexField(regex=r'^\+?1?\d{9,15}$', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'0 '}))
 
     class Meta:
         model = User
-        model2 = UserProfile
         fields = (
             'first_name',
             'last_name',
@@ -46,9 +45,10 @@ class RegistrationForm(forms.ModelForm):
 
         if commit and (user.password == user.password_confirm):
             u.save()
-            u = User.objects.get(username=u.username)
+            temp = User.objects.get(username=u.username)
+            print(f'staff {user.staff}')
 
-            up = UserProfile(user=u, staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
+            up = UserProfile(user_id=u.id, staff=user.staff, birthdate=user.birthdate, phonenumber=user.phonenumber)
 
             up.save()
 
