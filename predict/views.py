@@ -18,7 +18,6 @@ def see_prediction(request):
             try:
                 result = ResultsModel.objects.filter(result_id=result_id).first()
                 b = result.as_array()
-                print(b)
                 pre= temp.predict(b)
                 return render(request, 'predictions/see_prediction.html', { 'result_id': result_id, 'result': result,
                                                                             'prediction': pre[0], 'probability': pre[1]})
