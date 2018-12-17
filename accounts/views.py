@@ -93,8 +93,8 @@ def see_employees(request):
                 return HttpResponseRedirect('')
 
             except BulkWriteError:
-                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2, 'form_status':'none',
-                                                                 'tab_1_active':'', 'tab_2_active':'active', 'tab_3_active':'',
+                return render(request, 'staff/manager_v2.html', {'staff': staff, 'staff2': staff2, 'form_status': 'none',
+                                                                 'tab_1_active': '', 'tab_2_active':'active', 'tab_3_active': '',
                                                                  'tab_4_active': ''})
 
             except DuplicateKeyError:
