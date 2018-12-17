@@ -8,7 +8,6 @@ from accounts.models import UserProfile
 from django.contrib.auth.models import User
 
 def get_current_username(request):
-    print("HHHHEEEEEEEREEEEEEEEEEEEE")
     print(request.user.username)
     return request.user.username
 

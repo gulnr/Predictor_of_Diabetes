@@ -10,7 +10,7 @@ class PatientProfile(models.Model):
     patient_birthday = models.DateField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
-        return self.patient_name + " " + self.patient_surname + " " + self.patient_birthday
+        return self.patient_name + " " + self.patient_surname + " " + str(self.patient_birthday)
 
 
 class ResultsModel(models.Model):
@@ -28,3 +28,5 @@ class ResultsModel(models.Model):
     def __str__(self):
         return self.result_id
 
+    def as_array(self):
+        return [self.pregnancy, self.glucose, self.blood_p, self.skin, self.insulin, self.bmi, self.diabetes, self.age]

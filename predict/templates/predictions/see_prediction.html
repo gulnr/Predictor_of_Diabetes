@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <div style="width:200px; margin:0 auto;">
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="result_id input">Result ID</label>
+            <input name="result_id input" type="number" class="form-control input-sm" name="Result ID" >
+            <div style="text-align: center" >
+                <br>
+            <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <div>
+
+
+    </div>
+{% endblock %}

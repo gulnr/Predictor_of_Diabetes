@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'crispy_forms',
-    'results'
+    'results',
+    'predict'
 
 ]
 
@@ -63,7 +64,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'accounts', 'templates'),
-                 os.path.join(BASE_DIR, 'results', 'templates')]
+                 os.path.join(BASE_DIR, 'results', 'templates'),
+                 os.path.join(BASE_DIR, 'predict', 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -92,6 +94,11 @@ DATABASES = {
     'results': {
         'ENGINE': 'djongo',
         'NAME': 'results',
+        'ENFORCE_SCHEMA': True,
+    },
+    'predictions': {
+        'ENGINE': 'djongo',
+        'NAME': 'predictions',
         'ENFORCE_SCHEMA': True,
     }
 
@@ -158,4 +165,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = DATE_INPUT_FORMATS = ['%d.%m.%Y']
 
-DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter', ]
+DATABASE_ROUTERS = ['accounts.dbRouter.AccountsDBRouter', 'results.dbRouter.ResultsDBRouter', 'predict.dbRouter.PredictionsDBRouter']
