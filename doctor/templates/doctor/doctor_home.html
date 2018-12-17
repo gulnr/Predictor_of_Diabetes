@@ -21,23 +21,29 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Pregnancy</th>
+                                    <th scope="col">Glucose</th>
+                                    <th scope="col">Blood P.</th>
+                                    <th scope="col">Skin T.</th>
+                                    <th scope="col">Insulin</th>
+                                    <th scope="col">BMI</th>
+                                    <th scope="col">Diabetes P.</th>
+                                    <th scope="col">Age</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for user_ in staff %}
-                                    {% if user_.id != 1 %}
-                                        <tr>
-                                            <th scope="row">{{ user_.user_id }}</th>
-                                            <td>{{ user_.user.first_name }}</td>
-                                            <td>{{ user_.user.last_name }}</td>
-                                            <td>{{ user_.phonenumber }}</td>
-                                            <td>{{ user_.user.email }}</td>
-                                        </tr>
-                                    {% endif %}
+                                {% for patient_ in patient2 %}
+                                    <tr>
+                                        <th scope="row">{{ patient_.result_id }}</th>
+                                        <td>{{ patient_.pregnancy }}</td>
+                                        <td>{{ patient_.glucose }}</td>
+                                        <td>{{ patient_.blood_p }}</td>
+                                        <td>{{ patient_.skin }}</td>
+                                        <td>{{ patient_.insulin }}</td>
+                                        <td>{{ patient_.bmi }}</td>
+                                        <td>{{ patient_.diabetes }}</td>
+                                        <td>{{ patient_.age }}</td>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                         </table>

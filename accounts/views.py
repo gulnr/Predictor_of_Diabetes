@@ -78,7 +78,7 @@ def account(request):
 @login_required
 def see_employees(request):
     staff = UserProfile.objects.filter(staff="Doctor")
-    staff2 = UserProfile.objects.filter(staff="Lab Assistant")
+    staff2 = UserProfile.objects.filter(staff="Laboratory Assistant")
 
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
